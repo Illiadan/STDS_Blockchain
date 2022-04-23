@@ -10,8 +10,11 @@ class Block(models.Model):
         null=False,
         editable=False,
     )
-    createdAt = models.DateTimeField(
-        verbose_name="erstellt am", auto_now_add=True, null=True, editable=False
+    acceptedAt = models.DateTimeField(
+        verbose_name="verifiziert am", auto_now_add=True, null=True, editable=False
+    )
+    timestamp = models.DateTimeField(
+        verbose_name="erstellt am", null=True, editable=False
     )
     transactionsIncluded = models.TextField(
         verbose_name="beinhaltete Transaktionen", null=True, editable=False
