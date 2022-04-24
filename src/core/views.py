@@ -1,28 +1,18 @@
 from django.shortcuts import render
 
 from core.functions.blocks import blockGeneration as fBG
-from core.functions.blocks import blockQueries as fBQ
-from core.functions.transactions import transactionDBUpdate as fTDBU
+from core.functions.templateContext import blockUrl as fTCB
+from core.functions.templateContext import coreUrl as fTCC
 from core.functions.transactions import transactionGeneration as fTG
-from core.functions.transactions import transactionQueries as fTQ
 
 
 def coreUrl(request):
-    blockchainDifficulty = 4
-    numberOfBlocks = fBQ.getAllBlocksCount()
-    if numberOfBlocks == 0:
-        genBlock = fBG.generateGenesisBlock()
-        fBG.addBlockToDatabase(genBlock)
-    else:
-        block = fBG.generateNewBlock(blockchainDifficulty)
-        if fBG.blockValidation(block, blockchainDifficulty):
-            fBG.addBlockToDatabase(block)
-            fTDBU.transactionDatabaseUpdate(block)
-    unacceptedTransactions = fTQ.getAllUnacceptedTransactionsCount()
-    if unacceptedTransactions < 20:
-        fTG.generateTransactions(50)
-    return render(request, "coreLayout.html")
+    fBG.blockGeneration()
+    fTG.transactionGeneration()
+    context = fTCC.templateContextGeneration()
+    return render(request, "coreLayout.html", context=context)
 
 
 def blockUrl(request, value):
-    return render(request, "blockLayout.html")
+    context = fTCB.templateContextGeneration(value)
+    return render(request, "blockLayout.html", context=context)

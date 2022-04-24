@@ -5,7 +5,13 @@ import core.models as cm
 from core.functions.transactions import transactionQueries as fTQ
 
 
-def generateTransactions(amount):
+def transactionGeneration():
+    unacceptedTransactions = fTQ.getAllUnacceptedTransactionsCount()
+    if unacceptedTransactions < 20:
+        createTransactions(50)
+
+
+def createTransactions(amount):
     for x in range(amount):
         transactions = fTQ.getAllTransactions().values("id")
         transactionId = createUniqueId(transactions)

@@ -6,6 +6,7 @@ import core.models as cm
 import requests
 from core.functions.blocks import blockQueries as fBQ
 from core.functions.blocks import classBlock as fCB
+from core.functions.transactions import transactionDBUpdate as fTDBU
 from core.functions.transactions import transactionQueries as fTQ
 from django.utils.timezone import make_aware
 
@@ -30,6 +31,19 @@ def addBlockToDatabase(block):
         prevHash=block.prevHash,
     )
     dbBlock.save()
+
+
+def blockGeneration():
+    blockchainDifficulty = 4
+    numberOfBlocks = fBQ.getAllBlocksCount()
+    if numberOfBlocks == 0:
+        genBlock = generateGenesisBlock()
+        addBlockToDatabase(genBlock)
+    else:
+        block = generateNewBlock(blockchainDifficulty)
+        if blockValidation(block, blockchainDifficulty):
+            addBlockToDatabase(block)
+            fTDBU.transactionDatabaseUpdate(block)
 
 
 def generateGenesisBlock():

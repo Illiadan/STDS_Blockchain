@@ -4,7 +4,7 @@
 <section class="section">
     <div class="container">
     <div class="content">
-        <h2>Block 242523</h2>
+        <h2>Block {{id}}</h2>
         <nav class="level" style="align-items: start;">
         <div class="level-left">
             <table>
@@ -17,23 +17,23 @@
             <tbody>
                 <tr>
                 <td>Anzahl der Transaktionen</td>
-                <td>1337</td>
+                <td>{{transactionsCount}}</td>
                 </tr>
                 <tr>
                 <td>Height</td>
-                <td>242523</td>
+                <td>{{id}}</td>
                 </tr>
                 <tr>
                 <td>Datum</td>
-                <td>2022-04-06T15:30:21</td>
+                <td>{{acceptedAt}} UTC</td>
                 </tr>
                 <tr>
                 <td>Nonce</td>
-                <td>2398574532984</td>
+                <td>{{nonce}}</td>
                 </tr>
                 <tr>
                 <td>Miner(IP)</td>
-                <td>192.168.178.112</td>
+                <td>{{miner}}</td>
                 </tr>
             </tbody>
             </table>
@@ -51,15 +51,15 @@
             <tbody>
                 <tr>
                 <td>dieser Block</td>
-                <td>00000000000000000001adebfc4c0a599affb429788b65c0b0ad5588804d9377</td>
+                <td>{{hash}}</td>
                 </tr>
                 <tr>
                 <td>Vorgängerblock</td>
-                <td>00000000000000000009d6a55f4ed6f4380cdb1a58e56904d82422b144cca54b</td>
+                <td>{{prevHash}}</td>
                 </tr>
                 <tr>
                 <td>Nachfolgerblock</td>
-                <td></td>
+                <td>{{nextHash}}</td>
                 </tr>
             </tbody>
             </table>
@@ -68,64 +68,41 @@
         </nav>
 
         <h3>Transaktionen</h3>
-        <!-- eine Transaktion -->
-        <article class="message is-info">
-        <nav class="level message-header">
-            <div class="level-left">
-            <a>e4d4594a5fd6f56392889b4bfc90d505a4f756dadcf8d4ab9e180c54fa244230</a>
-            </div>
-            <div class="level-right">2022-04-06T15:29:43</div>
-        </nav>
-        <nav style="align-items: start;" class="level message-body">
-            <div style="align-items: start" class="level-left">
-            <a>bc1q7cyrfmck2ffu2ud3rn5l5a8yv6f0chkp0zpemf</a>
-            </div>
-            <div style="align-items: start" class="level-item">
-            0.300 BAC
-            </div>
-            <div class="level-item">
-            &rarr;
-            </div>
-            <div style="align-items: start; display: inline-grid;" class="level-item">
-            <a>1FZ8LVhxsEzZfyKCXFhQeKz2NHEpZAycgA</a>
-            </div>
-            <div style="align-items: start; text-align: end; display: inline-grid;" class="level-right">
-            0.300 BAC<br/>
-            <div class="button is-success mt-3">0.300 BAC</div>
-            </div>
-        </nav>
-        </article>
-
-        <!-- noch eine Transaktion -->
-        <article class="message is-info">
-        <nav class="level message-header">
-            <div class="level-left">
-            <a>e4d4594a5fd6f56392889b4bfc90d505a4f756dadcf8d4ab9e180c54fa244230</a>
-            </div>
-            <div class="level-right">2022-04-06T15:29:43</div>
-        </nav>
-        <nav style="align-items: start;" class="level message-body">
-            <div style="align-items: start" class="level-left">
-            <a>bc1q7cyrfmck2ffu2ud3rn5l5a8yv6f0chkp0zpemf</a>
-            </div>
-            <div style="align-items: start" class="level-item">
-            0.700 BAC
-            </div>
-            <div class="level-item">
-            &rarr;
-            </div>
-            <div style="align-items: start; display: inline-grid;" class="level-item">
-            <a>1FZ8LVhxsEzZfyKCXFhQeKz2NHEpZAycgA</a>
-            <a>bc1q7cyrfmck2ffu2ud3rn5l5a8yv6f0chkp0zpemf</a>
-            </div>
-            <div style="align-items: start; text-align: end; display: inline-grid;" class="level-right">
-            0.300 BAC<br/>
-            0.400 BAC<br/>
-            <div class="button is-success mt-3">0.700 BAC</div>
-            </div>
-        </nav>
-        </article>
-
+        {% for transaction in transactions %}
+            <article class="message is-info">
+                <nav class="level message-header">
+                    <div class="level-left">{{transaction.id}}</div>
+                    <div class="level-right">{{transaction.createdAt}} UTC</div>
+                </nav>
+                <nav style="align-items: start;" class="level message-body">
+                    <div style="align-items: start" class="level-left">
+                    {% for sender in transaction.sender %}
+                        {{sender}}<br/>
+                    {% endfor %}
+                    </div>
+                    <div style="align-items: start" class="level-item">
+                    {% for senderValue in transaction.senderValue %}
+                        {{senderValue}} BAC<br/>
+                    {% endfor %}
+                    </div>
+                    <div class="level-item">
+                    &rarr;
+                    </div>
+                    <div style="align-items: start; display: inline-grid;" class="level-item">
+                    {% for recipient in transaction.recipient %}
+                        {{recipient}}<br/>
+                    {% endfor %}
+                    </div>
+                    <div style="align-items: start; text-align: end; display: inline-grid;" class="level-right">
+                    {% for recipientValue in transaction.recipientValue %}
+                        {{recipientValue}} BAC<br/>
+                    {% endfor %}
+                    <div style="align-items: start; text-align: end; display: inline-grid;" class="level-right">Fee: {{transaction.fee}} BAC<br/>
+                    <div class="button is-success mt-3">{{transaction.totalValue}} BAC</div>
+                    </div>
+                </nav>
+            </article>
+        {% endfor %}
     </div>
     </div>
 </section>
