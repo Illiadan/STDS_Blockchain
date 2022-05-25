@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BA-Chain</title>
+    <link rel="stylesheet" href="static/css/bulma.css">
+  </head>
+  <body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <img style="max-height: 50px;" src="static/media/logo.png">
+        </div>
+      </div>
+
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a href="" class="navbar-item">
+            Blockübersicht
+          </a>
+
+          <a class="navbar-item">
+            Neue Transaktion
+          </a>
+
+          <a class="navbar-item">
+            Mitschürfen
+          </a>
+
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field has-addons">
+              <div class="control">
+                <input class="input" type="text" placeholder="Blocknummer, IP, ...">
+              </div>
+              <div class="control">
+                <a class="button is-link">
+                  Search
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="container">
+        <div class="content">
+          <h2>Neuste Blöcke</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Blocknummer</th>
+                <th>Datum(Alter)</th>
+                <th>Transaktionen</th>
+                <th>Gesamtvolumen</th>
+                <th>Miner</th>
+                <th>Größe</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th><a href="block/242523">242523</a></th>
+                <td>06.04.2022 - 15:30:21 (vor 20 Min)</td>
+                <td>1020</td>
+                <td>21231.03 BAC</td>
+                <td>192.168.178.112</td>
+                <td>2047</td>
+              </tr>
+              <tr>
+                <th>242522</th>
+                <td>06.04.2022 - 15:20:46 (vor 30 Min)</td>
+                <td>4221</td>
+                <td>61231.03 BAC</td>
+                <td>123.42.129.12</td>
+                <td>4359</td>
+              </tr>
+            <tbody/>
+          </table>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

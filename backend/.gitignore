@@ -1,0 +1,9 @@
+*.sqlite
+*.sqlite3
+*.db
+src/**/__pycache__/
+src/*.log
+venv
+block_memory
+target
+Cargo.lock

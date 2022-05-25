@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="content">
+      <h1>Mining</h1>
+      <h5 id="status">Verbinde zum Backend ...</h5>
+      <p>Suche Nonce zwischen <span id="lowerBound"></span> und <span id="upperBound"></span></p>
+
+      <div class="level">
+        <h3 class="level-left">Letzte Blöcke</h3>
+        <h5 id="ip" class="level-right">Deine IP: </h5>
+      </div>
+      <table>
+      <thead>
+          <tr>
+          <th>Blocknummer</th>
+          <th>Datum</th>
+          <th>Miner</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr id="row-1" class="is-hidden">
+            <th id="id-1"><a href="">1</a></th>
+            <td id="date-1">1</td>
+            <td id="miner-1">1</td>
+          </tr>
+          <tr id="row-2" class="is-hidden">
+            <th id="id-2"><a href="">1</a></th>
+            <td id="date-2">1</td>
+            <td id="miner-2">1</td>
+          </tr>
+          <tr id="row-3" class="is-hidden">
+            <th id="id-3"><a href="">1</a></th>
+            <td id="date-3">1</td>
+            <td id="miner-3">1</td>
+          </tr>
+          <tr id="row-4" class="is-hidden">
+            <th id="id-4"><a href="">1</a></th>
+            <td id="date-4">1</td>
+            <td id="miner-4">1</td>
+          </tr>
+          <tr id="row-5" class="is-hidden">
+            <th id="id-5"><a href="">1</a></th>
+            <td id="date-5">1</td>
+            <td id="miner-5">1</td>
+          </tr>
+      <tbody/>
+      </table>
+    </div>
+  </div>
+</section>
+<script type="module">
+  import init, {get_ip, start_websocket} from "./static/pkg/calc.js";
+
+  init().then(async () => {
+    await get_ip();
+    start_websocket();
+  });
+</script>
+{% endblock content %}
